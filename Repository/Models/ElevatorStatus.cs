@@ -1,10 +1,10 @@
 ﻿
 namespace Repository.Models
 {
-    public enum ElevatorStatus : int
+    public enum ElevatorStatus
     {
-        Stoped = 0,
-        MovingDown = 1,
-        MovingUp = 2
+        Stoped,
+        MovingDown,
+        MovingUp
     }
 }

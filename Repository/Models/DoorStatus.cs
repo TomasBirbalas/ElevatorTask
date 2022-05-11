@@ -1,11 +1,11 @@
 ﻿
 namespace Repository.Models
 {
-    public enum DoorStatus : int
+    public enum DoorStatus
     {
-        Closed = 0,
-        Opening = 1,
-        Open = 2,
-        Closing = 3
+        Closed,
+        Opening,
+        Open,
+        Closing
     }
 }
