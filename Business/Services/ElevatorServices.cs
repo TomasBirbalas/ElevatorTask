@@ -32,8 +32,7 @@ namespace Business
 		public void MoveDown(int floor)
 		{
 			Elevator.Status = ElevatorStatus.MovingDown;
-			Console.WriteLine($"Going up to: {floor}");
-			Elevator.CurrentFloor = floor;
+			Console.WriteLine($"Going up down: {floor}");
 			while (floor != Elevator.CurrentFloor)
 			{
 				Console.WriteLine($"	Elevator is moving: Current floor {Elevator.CurrentFloor}");
@@ -47,6 +46,7 @@ namespace Business
 		{
 			Elevator.ElevatorDoorStatus = DoorStatus.Opening;
 			Console.WriteLine("Door opening");
+			Thread.Sleep(2000);
 			Elevator.ElevatorDoorStatus = DoorStatus.Open;
 			Console.WriteLine("Door is open");
 		}
@@ -54,6 +54,7 @@ namespace Business
 		{
 			Elevator.ElevatorDoorStatus = DoorStatus.Closing;
 			Console.WriteLine("Door closing");
+			Thread.Sleep(2000);
 			Elevator.ElevatorDoorStatus = DoorStatus.Closed;
 			Console.WriteLine("Door is closed");
 		}
