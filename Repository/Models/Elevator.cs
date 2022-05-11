@@ -7,7 +7,7 @@ namespace Repository.Models
     {
         public int Id { get; }
         public int CurrentFloor { get; set; }
-        public Queue<int> Requests { get; set; }
+        public Queue<RequestsOfElevator> Requests { get; set; }
         public ElevatorStatus Status { get; set; }
         public DoorStatus ElevatorDoorStatus { get; set; }
 
@@ -16,7 +16,7 @@ namespace Repository.Models
             Id = id;
             CurrentFloor = currentFloor;
 
-            Requests = new Queue<int>();
+            Requests = new Queue<RequestsOfElevator>();
             Status = ElevatorStatus.Stoped;
             ElevatorDoorStatus = DoorStatus.Closed;
         }

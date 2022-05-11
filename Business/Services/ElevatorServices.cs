@@ -3,60 +3,46 @@ using Repository;
 using Repository.DataAccess;
 using Repository.Models;
 using System;
+using System.Threading;
 
 namespace Business
 {
     public class ElevatorServices
     {
-		Elevator Elevator { get; }
-		BuildingRepository BuildingRepository { get; }
-
-		Building Building;
-
-		private void ElevatorCall( int requestElevator, int elevatorId)
-        {
-			Building = BuildingRepository.RetrieveBuilding();
-
-			if (requestElevator > Building.Floors || requestElevator < 1) throw new Exception("Calling position is not valid");
-
-			bool isElevatorExist = Building.Elevators.Exists(elevator => elevator.Id == elevatorId);
-			if (isElevatorExist)
-			{
-				int elevatorPosition = Building.Elevators[elevatorId].CurrentFloor;
-				int elevatorStatus = (int)Building.Elevators[elevatorId].Status;
-				int elevatorDoorStatus = (int)Building.Elevators[elevatorId].ElevatorDoorStatus;
-			}
-		}
-		private void Stop(int floor)
+		Elevator Elevator = new Elevator(1, 1);
+		public void Stop(int floor)
 		{
 			Elevator.Status = ElevatorStatus.Stoped;
 			Elevator.CurrentFloor = floor;
 			Console.WriteLine($"Stopped at floor {floor}");
 		}
-
-		private void MoveUp(int floor)
+		public void MoveUp(int floor)
         {
 			Elevator.Status = ElevatorStatus.MovingUp;
 			Console.WriteLine($"Going up to: {floor}");
             while (floor != Elevator.CurrentFloor)
             {
+				Console.WriteLine($"	Elevator is moving: Current floor {Elevator.CurrentFloor}");
+				Thread.Sleep(1000);
 				Elevator.CurrentFloor++;
 			}
 			OpenDoor();
 			CloseDoor();
 		}
-		private void MoveDown(int floor)
+		public void MoveDown(int floor)
 		{
 			Elevator.Status = ElevatorStatus.MovingDown;
 			Console.WriteLine($"Going up to: {floor}");
+			Elevator.CurrentFloor = floor;
 			while (floor != Elevator.CurrentFloor)
 			{
+				Console.WriteLine($"	Elevator is moving: Current floor {Elevator.CurrentFloor}");
+				Thread.Sleep(1000);
 				Elevator.CurrentFloor--;
 			}
 			OpenDoor();
 			CloseDoor();
 		}
-
 		private void OpenDoor()
 		{
 			Elevator.ElevatorDoorStatus = DoorStatus.Opening;
@@ -64,7 +50,6 @@ namespace Business
 			Elevator.ElevatorDoorStatus = DoorStatus.Open;
 			Console.WriteLine("Door is open");
 		}
-
 		private void CloseDoor()
 		{
 			Elevator.ElevatorDoorStatus = DoorStatus.Closing;

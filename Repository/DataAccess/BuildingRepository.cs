@@ -28,5 +28,9 @@ namespace Repository.DataAccess
         {
             return Building;
         }
+        public Elevator RetrieveElevatorById(int elevatorId)
+        {
+            return Elevators.Find(elevator => elevator.Id == elevatorId);
+        }
     }
 }

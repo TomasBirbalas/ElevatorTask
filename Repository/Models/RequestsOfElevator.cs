@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Repository.Models
 {
-    internal class RequestsOfElevator
+    public class RequestsOfElevator
     {
+        public int RequestToFloor { get; set; }
+        public RequestsOfElevator(int requestToFloor)
+        {
+            RequestToFloor = requestToFloor;
+        }
     }
 }
