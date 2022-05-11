@@ -40,16 +40,14 @@ namespace Business.Services
 				case ElevatorStatus.MovingDown:
 					while (downRequests.Count > 0)
                     {
-						Console.WriteLine(downRequests.First());
-						elevatorServices.MoveDown(downRequests.Dequeue().RequestToFloor);
+						elevatorServices.MoveDown(downRequests.Dequeue().RequestToFloor, ref currentElevator);
                     }
 					currentElevator.Status = ElevatorStatus.Stoped;
 					break;
 				case ElevatorStatus.MovingUp:
 					while (upRequests.Count > 0)
                     {
-						Console.WriteLine(upRequests.First());
-						elevatorServices.MoveUp(upRequests.Dequeue().RequestToFloor);
+						elevatorServices.MoveUp(upRequests.Dequeue().RequestToFloor, ref currentElevator);
                     }
 					currentElevator.Status = ElevatorStatus.Stoped;
 					break;

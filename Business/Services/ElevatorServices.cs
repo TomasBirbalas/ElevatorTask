@@ -9,25 +9,13 @@ namespace Business
 {
     public class ElevatorServices
     {
-        //private static Elevator Elevator = new Elevator(1,1);
-
-        private readonly IBuildingRepository _buildingRepository;
-		Building currentBuilding;
-		Elevator elevator;
-		public ElevatorServices(IBuildingRepository buildingRepository)
-        {
-            _buildingRepository = buildingRepository;
-
-            currentBuilding = _buildingRepository.RetrieveBuilding();
-            elevator = currentBuilding.Elevators[0];
-        }
-		public void Stop(int floor)
+		public void Stop(int floor, ref Elevator elevator)
 		{
 			elevator.Status = ElevatorStatus.Stoped;
 			elevator.CurrentFloor = floor;
 			Console.WriteLine($"Stopped at floor {floor}");
 		}
-		public void MoveUp(int floor)
+		public void MoveUp(int floor, ref Elevator elevator)
         {
 			elevator.Status = ElevatorStatus.MovingUp;
 			Console.WriteLine($"Going up to: {floor}");
@@ -37,10 +25,11 @@ namespace Business
 				Thread.Sleep(1000);
 				elevator.CurrentFloor++;
 			}
-			OpenDoor();
-			CloseDoor();
+			Stop(floor, ref elevator);
+			OpenDoor(ref elevator);
+			CloseDoor(ref elevator);
 		}
-		public void MoveDown(int floor)
+		public void MoveDown(int floor, ref Elevator elevator)
 		{
 			elevator.Status = ElevatorStatus.MovingDown;
 			Console.WriteLine($"Going down to: {floor}");
@@ -50,10 +39,11 @@ namespace Business
 				Thread.Sleep(1000);
 				elevator.CurrentFloor--;
 			}
-			OpenDoor();
-			CloseDoor();
+			Stop(floor, ref elevator);
+			OpenDoor(ref elevator);
+			CloseDoor(ref elevator);
 		}
-		private void OpenDoor()
+		private void OpenDoor(ref Elevator elevator)
 		{
 			elevator.ElevatorDoorStatus = DoorStatus.Opening;
 			Console.WriteLine("Door opening");
@@ -61,9 +51,8 @@ namespace Business
 			elevator.ElevatorDoorStatus = DoorStatus.Open;
 			Console.WriteLine("Door is open");
 			Thread.Sleep(500);
-			elevator.Status = ElevatorStatus.Stoped;
 		}
-		private void CloseDoor()
+		private void CloseDoor(ref Elevator elevator)
 		{
 			elevator.ElevatorDoorStatus = DoorStatus.Closing;
 			Console.WriteLine("Door closing");
