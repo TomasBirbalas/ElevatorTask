@@ -9,7 +9,8 @@ namespace Business
 {
     public class ElevatorServices
     {
-		Elevator Elevator = new Elevator(1, 1);
+		Elevator Elevator = new Elevator(1,1);
+
 		public void Stop(int floor)
 		{
 			Elevator.Status = ElevatorStatus.Stoped;

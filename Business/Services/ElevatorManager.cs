@@ -3,20 +3,18 @@ using Repository.DataAccess;
 using Repository.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Business.Services
 {
     public class ElevatorManager
     {
-		private BuildingRepository building = new BuildingRepository(10, 10);
-
 		private ElevatorServices elevatorServices = new ElevatorServices();
 		private Queue<RequestsOfElevator> downRequests = new Queue<RequestsOfElevator>();
 		private Queue<RequestsOfElevator> upRequests = new Queue<RequestsOfElevator>();
 
 		public void ElevatorCall(Building currentBuilding, int requestElevator, int elevatorId)
 		{
-
 			if (requestElevator > currentBuilding.Floors || requestElevator < 1) throw new Exception("Calling position is not valid");
 
 			bool isElevatorExist = currentBuilding.Elevators.Exists(elevator => elevator.Id == elevatorId);
@@ -31,12 +29,12 @@ namespace Business.Services
                 {
 					downRequests.Enqueue(new RequestsOfElevator(requestElevator));
                 }
-				Move(elevatorId, requestElevator);
+				Move(currentBuilding, elevatorId, requestElevator);
 			}
 		}
-		public void Move(int elevatorId, int floorRequest)
+		public void Move(Building currentBuilding, int elevatorId, int floorRequest)
 		{
-			Elevator currentElevator = building.RetrieveElevatorById(elevatorId);
+			Elevator currentElevator = currentBuilding.Elevators.Find(elevator => elevator.Id == elevatorId);
 			switch (currentElevator.Status)
 			{
 				case ElevatorStatus.MovingDown:
@@ -61,11 +59,16 @@ namespace Business.Services
                     {
 						currentElevator.Status = ElevatorStatus.MovingDown;
                     }
-					Move(currentElevator.Id, floorRequest);
+					Move(currentBuilding, currentElevator.Id, floorRequest);
 					break;
 				default:
 					break;
 			}
 		}
+		public int GetClosesedElevator(Building currentBuilding, int floorRequest)
+        {
+			Elevator elevator = currentBuilding.Elevators.OrderBy(elevator => Math.Abs(elevator.CurrentFloor - floorRequest)).First();
+			return elevator.Id;
+        }
 	}
 }
