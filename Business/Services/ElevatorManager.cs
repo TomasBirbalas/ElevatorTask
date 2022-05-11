@@ -40,6 +40,7 @@ namespace Business.Services
 				case ElevatorStatus.MovingDown:
 					while (downRequests.Count > 0)
                     {
+						Console.WriteLine(downRequests.First());
 						elevatorServices.MoveDown(downRequests.Dequeue().RequestToFloor);
                     }
 					currentElevator.Status = ElevatorStatus.Stoped;
@@ -47,21 +48,23 @@ namespace Business.Services
 				case ElevatorStatus.MovingUp:
 					while (upRequests.Count > 0)
                     {
+						Console.WriteLine(upRequests.First());
 						elevatorServices.MoveUp(upRequests.Dequeue().RequestToFloor);
                     }
 					currentElevator.Status = ElevatorStatus.Stoped;
 					break;
-				case ElevatorStatus.Stoped:
-                    if(floorRequest > currentElevator.CurrentFloor)
-					{
-						currentElevator.Status = ElevatorStatus.MovingUp;
-                    }else if(floorRequest <= currentElevator.CurrentFloor)
+                case ElevatorStatus.Stoped:
+                    if (floorRequest > currentElevator.CurrentFloor)
                     {
-						currentElevator.Status = ElevatorStatus.MovingDown;
+                        currentElevator.Status = ElevatorStatus.MovingUp;
                     }
-					Move(currentBuilding, currentElevator.Id, floorRequest);
-					break;
-				default:
+                    else
+                    {
+                        currentElevator.Status = ElevatorStatus.MovingDown;
+                    }
+                    Move(currentBuilding, currentElevator.Id, floorRequest);
+                    break;
+                default:
 					break;
 			}
 		}
