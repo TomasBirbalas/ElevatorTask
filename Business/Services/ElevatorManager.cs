@@ -20,7 +20,7 @@ namespace Business.Services
 			bool isElevatorExist = currentBuilding.Elevators.Exists(elevator => elevator.Id == elevatorId);
 			if (isElevatorExist)
 			{
-				Elevator elevator = currentBuilding.Elevators[elevatorId];
+				Elevator elevator = currentBuilding.Elevators.Find(elevator => elevator.Id == elevatorId);
 				if (requestElevator > elevator.CurrentFloor)
 				{
 					upRequests.Enqueue(new RequestsOfElevator(requestElevator));
@@ -55,7 +55,7 @@ namespace Business.Services
                     if(floorRequest > currentElevator.CurrentFloor)
 					{
 						currentElevator.Status = ElevatorStatus.MovingUp;
-                    }else
+                    }else if(floorRequest <= currentElevator.CurrentFloor)
                     {
 						currentElevator.Status = ElevatorStatus.MovingDown;
                     }

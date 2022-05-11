@@ -6,8 +6,8 @@ namespace Repository.DataAccess
 {
     public class BuildingRepository : IBuildingRepository
     {
-        private Building Building { get; set; }
-        private List<Elevator> Elevators { get; set; }
+        public Building Building { get; set; }
+        public List<Elevator> Elevators { get; set; }
 
         public BuildingRepository(int floorsNumber, int elevatorsNumber)
         {

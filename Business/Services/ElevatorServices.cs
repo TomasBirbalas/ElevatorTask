@@ -9,7 +9,7 @@ namespace Business
 {
     public class ElevatorServices
     {
-		Elevator Elevator = new Elevator(1,1);
+		private static Elevator Elevator = new Elevator(1,1);
 
 		public void Stop(int floor)
 		{
@@ -47,17 +47,19 @@ namespace Business
 		{
 			Elevator.ElevatorDoorStatus = DoorStatus.Opening;
 			Console.WriteLine("Door opening");
-			Thread.Sleep(2000);
+			Thread.Sleep(1500);
 			Elevator.ElevatorDoorStatus = DoorStatus.Open;
 			Console.WriteLine("Door is open");
+			Thread.Sleep(500);
 		}
 		private void CloseDoor()
 		{
 			Elevator.ElevatorDoorStatus = DoorStatus.Closing;
 			Console.WriteLine("Door closing");
-			Thread.Sleep(2000);
+			Thread.Sleep(1500);
 			Elevator.ElevatorDoorStatus = DoorStatus.Closed;
 			Console.WriteLine("Door is closed");
+			Thread.Sleep(500);
 		}
 	}
 }
