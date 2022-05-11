@@ -1,0 +1,32 @@
+﻿using Repository.Models;
+using System;
+using System.Collections.Generic;
+
+namespace Repository.DataAccess
+{
+    public class BuildingRepository : IBuildingRepository
+    {
+        private Building Building { get; set; }
+        private List<Elevator> Elevators { get; set; }
+
+        public BuildingRepository(int floorsNumber, int elevatorsNumber)
+        {
+            if (floorsNumber < 2 || elevatorsNumber < 2)
+            {
+                throw new Exception("Building not valid for elevators");
+            }
+
+            Elevators = new List<Elevator>();
+            for (int i = 0; i < elevatorsNumber; i++)
+            {
+                Elevators.Add(new Elevator(i, 1));
+            }
+
+            Building = new Building(floorsNumber, Elevators);
+        }
+        public Building RetrieveBuilding()
+        {
+            return Building;
+        }
+    }
+}
