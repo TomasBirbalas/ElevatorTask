@@ -33,7 +33,7 @@ namespace Business
 		public void MoveDown(int floor)
 		{
 			Elevator.Status = ElevatorStatus.MovingDown;
-			Console.WriteLine($"Going up down: {floor}");
+			Console.WriteLine($"Going down to: {floor}");
 			while (floor != Elevator.CurrentFloor)
 			{
 				Console.WriteLine($"	Elevator is moving: Current floor {Elevator.CurrentFloor}");
