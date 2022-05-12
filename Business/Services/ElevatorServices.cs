@@ -13,7 +13,7 @@ namespace Business
 		{
 			elevator.Status = ElevatorStatus.Stoped;
 			elevator.CurrentFloor = floor;
-			Console.WriteLine($"Stopped at floor {floor}");
+			Console.WriteLine($"Stopped at floor {floor} DateStamp:{DateTime.Now}");
 		}
 		public void MoveUp(int floor, ref Elevator elevator)
         {
@@ -21,7 +21,7 @@ namespace Business
 			Console.WriteLine($"Going up to: {floor}");
             while (floor != elevator.CurrentFloor)
             {
-				Console.WriteLine($"	Elevator is moving: Current floor {elevator.CurrentFloor}");
+				Console.WriteLine($"	Elevator is moving: Current floor {elevator.CurrentFloor}, DateStamp:{DateTime.Now}");
 				Thread.Sleep(1000);
 				elevator.CurrentFloor++;
 			}
@@ -35,7 +35,7 @@ namespace Business
 			Console.WriteLine($"Going down to: {floor}");
 			while (floor != elevator.CurrentFloor)
 			{
-				Console.WriteLine($"	Elevator is moving: Current floor {elevator.CurrentFloor}");
+				Console.WriteLine($"	Elevator is moving: Current floor {elevator.CurrentFloor}, DateStamp:{DateTime.Now}");
 				Thread.Sleep(1000);
 				elevator.CurrentFloor--;
 			}
@@ -46,19 +46,19 @@ namespace Business
 		public void OpenDoor(ref Elevator elevator)
 		{
 			elevator.ElevatorDoorStatus = DoorStatus.Opening;
-			Console.WriteLine("Door opening");
+			Console.WriteLine($"Door opening, DateStamp:{DateTime.Now}");
 			Thread.Sleep(1500);
 			elevator.ElevatorDoorStatus = DoorStatus.Open;
-			Console.WriteLine("Door is open");
+			Console.WriteLine($"Door is open, DateStamp:{DateTime.Now}");
 			Thread.Sleep(500);
 		}
 		public void CloseDoor(ref Elevator elevator)
 		{
 			elevator.ElevatorDoorStatus = DoorStatus.Closing;
-			Console.WriteLine("Door closing");
+			Console.WriteLine($"Door closing, DateStamp:{DateTime.Now}");
 			Thread.Sleep(1500);
 			elevator.ElevatorDoorStatus = DoorStatus.Closed;
-			Console.WriteLine("Door is closed");
+			Console.WriteLine($"Door is closed, DateStamp:{DateTime.Now}");
 			Thread.Sleep(500);
 		}
 	}
