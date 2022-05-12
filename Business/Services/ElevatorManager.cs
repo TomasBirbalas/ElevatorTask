@@ -66,10 +66,17 @@ namespace Business.Services
 					break;
 			}
 		}
-		public int GetClosesedElevator(Building currentBuilding, int floorRequest)
+		public Elevator GetClosesedElevator(Building currentBuilding, int floorRequest)
         {
-			Elevator elevator = currentBuilding.Elevators.OrderBy(elevator => Math.Abs(elevator.CurrentFloor - floorRequest)).First();
-			return elevator.Id;
+			List<Elevator> listOfElevators = currentBuilding.Elevators;
+			List<Elevator> listOfAvailableElevators = new List<Elevator>();
+			currentBuilding.Elevators.ForEach(elevator => {
+                if (!elevator.IsBusy)
+                {
+					listOfAvailableElevators.Add(elevator);
+                }
+			});
+			return listOfAvailableElevators.OrderBy(elevator => Math.Abs(elevator.CurrentFloor - floorRequest)).First();
         }
 	}
 }
