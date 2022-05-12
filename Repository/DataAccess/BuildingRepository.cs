@@ -17,7 +17,7 @@ namespace Repository.DataAccess
             }
 
             Elevators = new List<Elevator>();
-            for (int i = 0; i < elevatorsNumber; i++)
+            for (int i = 1; i <= elevatorsNumber; i++)
             {
                 Elevators.Add(new Elevator(i, 1));
             }

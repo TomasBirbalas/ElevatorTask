@@ -8,6 +8,11 @@ namespace ElevatorTask
     internal class Program
     {
         private const string quit = "q";
+
+        private const string selectionCallElevator = "a";
+        private const string selectionGoingToFloor = "b";
+
+
         static void Main(string[] args)
         {
             Console.WriteLine("Please create building");
@@ -24,17 +29,55 @@ namespace ElevatorTask
 
             var manager = new ElevatorManager();
             string input = "";
+            int elevatorId;
             while (input != quit)
             {
-                Console.WriteLine("Enter Floor:");
+                Console.WriteLine("Select your action:");
+                Console.WriteLine("Press 'a' to call elevator or press 'b' if you are in elevator");
                 input = Console.ReadLine();
-                int floor;
-                if (int.TryParse(input, out floor))
-                    manager.ElevatorCall(currentBuilding, floor, 1);
-                else if (input == quit)
-                    Console.WriteLine("GoodBye!");
+                if (input == selectionCallElevator)
+                {
+                    Console.WriteLine("Enter Floor:");
+                    input = Console.ReadLine();
+
+                    int floor;
+                    if (int.TryParse(input, out floor))
+                    {
+                        elevatorId = manager.GetClosesedElevator(currentBuilding, floor);
+                        manager.ElevatorCall(currentBuilding, floor, elevatorId);
+
+                        Console.WriteLine($"Elevator ID is: {elevatorId}");
+                    }
+                    else if (input == quit)
+                    {
+                        Console.WriteLine("GoodBye!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have pressed an incorrect floor, Please try again");
+                    }
+                }
                 else
-                    Console.WriteLine("You have pressed an incorrect floor, Please try again");
+                {
+                    Console.WriteLine("Enter Floor:");
+                    input = Console.ReadLine();
+                    Console.WriteLine("Enter elevator ID:");
+                    elevatorId = Convert.ToInt32(Console.ReadLine());
+
+                    int floor;
+                    if (int.TryParse(input, out floor))
+                    {
+                        manager.ElevatorCall(currentBuilding, floor, elevatorId);
+                    }
+                    else if (input == quit)
+                    {
+                        Console.WriteLine("GoodBye!");
+                    }
+                    else
+                    {
+                        Console.WriteLine("You have pressed an incorrect floor, Please try again");
+                    }
+                }
             }
         }
     }
