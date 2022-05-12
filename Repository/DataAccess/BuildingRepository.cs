@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Repository.DataAccess
 {
-    public class BuildingRepository : IBuildingRepository
+    public class BuildingRepository
     {
         public Building Building { get; set; }
         public List<Elevator> Elevators { get; set; }

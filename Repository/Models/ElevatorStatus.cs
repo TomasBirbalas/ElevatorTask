@@ -5,6 +5,6 @@ namespace Repository.Models
     {
         Stoped,
         MovingDown,
-        MovingUp
+        MovingUp,
     }
 }

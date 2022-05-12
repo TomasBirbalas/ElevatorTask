@@ -1,6 +1,7 @@
 ﻿using Business.Services;
 using Repository;
 using Repository.DataAccess;
+using Repository.Models;
 using System;
 
 namespace ElevatorTask
@@ -43,10 +44,10 @@ namespace ElevatorTask
                     int floor;
                     if (int.TryParse(input, out floor))
                     {
-                        elevatorId = manager.GetClosesedElevator(currentBuilding, floor);
-                        manager.ElevatorCall(currentBuilding, floor, elevatorId);
-
-                        Console.WriteLine($"Elevator ID is: {elevatorId}");
+                        Elevator currentElevator = manager.GetClosesedElevator(currentBuilding, floor);
+                        manager.ElevatorCall(currentBuilding, floor, currentElevator.Id);
+                        currentElevator.IsBusy = true;
+                        Console.WriteLine($"Elevator ID is: {currentElevator.Id}");
                     }
                     else if (input == quit)
                     {
@@ -57,13 +58,13 @@ namespace ElevatorTask
                         Console.WriteLine("You have pressed an incorrect floor, Please try again");
                     }
                 }
-                else
+                else if(input == selectionGoingToFloor)
                 {
                     Console.WriteLine("Enter Floor:");
                     input = Console.ReadLine();
                     Console.WriteLine("Enter elevator ID:");
                     elevatorId = Convert.ToInt32(Console.ReadLine());
-
+                    Elevator currentElevator = currentBuilding.Elevators.Find(elevator => elevator.Id == elevatorId);
                     int floor;
                     if (int.TryParse(input, out floor))
                     {
@@ -77,6 +78,11 @@ namespace ElevatorTask
                     {
                         Console.WriteLine("You have pressed an incorrect floor, Please try again");
                     }
+                    currentElevator.IsBusy = false;
+                }
+                else if (input == quit)
+                {
+                    Console.WriteLine("GoodBye!");
                 }
             }
         }
