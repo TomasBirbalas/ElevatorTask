@@ -43,7 +43,7 @@ namespace Business
 			OpenDoor(ref elevator);
 			CloseDoor(ref elevator);
 		}
-		private void OpenDoor(ref Elevator elevator)
+		public void OpenDoor(ref Elevator elevator)
 		{
 			elevator.ElevatorDoorStatus = DoorStatus.Opening;
 			Console.WriteLine("Door opening");
@@ -52,7 +52,7 @@ namespace Business
 			Console.WriteLine("Door is open");
 			Thread.Sleep(500);
 		}
-		private void CloseDoor(ref Elevator elevator)
+		public void CloseDoor(ref Elevator elevator)
 		{
 			elevator.ElevatorDoorStatus = DoorStatus.Closing;
 			Console.WriteLine("Door closing");
