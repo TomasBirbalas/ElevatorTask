@@ -9,10 +9,8 @@ namespace ElevatorTask
     internal class Program
     {
         private const string quit = "q";
-
         private const string selectionCallElevator = "a";
         private const string selectionGoingToFloor = "b";
-
 
         static void Main(string[] args)
         {
@@ -49,10 +47,6 @@ namespace ElevatorTask
                         currentElevator.IsBusy = true;
                         Console.WriteLine($"Elevator ID is: {currentElevator.Id}");
                     }
-                    else if (input == quit)
-                    {
-                        Console.WriteLine("GoodBye!");
-                    }
                     else
                     {
                         Console.WriteLine("You have pressed an incorrect floor, Please try again");
@@ -70,10 +64,6 @@ namespace ElevatorTask
                     {
                         manager.ElevatorCall(currentBuilding, floor, elevatorId);
                     }
-                    else if (input == quit)
-                    {
-                        Console.WriteLine("GoodBye!");
-                    }
                     else
                     {
                         Console.WriteLine("You have pressed an incorrect floor, Please try again");
@@ -83,6 +73,10 @@ namespace ElevatorTask
                 else if (input == quit)
                 {
                     Console.WriteLine("GoodBye!");
+                }
+                else
+                {
+                    Console.WriteLine("You have pressed an incorrect choice, Please try again");
                 }
             }
         }

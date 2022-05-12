@@ -15,13 +15,11 @@ namespace Repository.DataAccess
             {
                 throw new Exception("Building not valid for elevators");
             }
-
             Elevators = new List<Elevator>();
             for (int i = 1; i <= elevatorsNumber; i++)
             {
                 Elevators.Add(new Elevator(i, 1));
             }
-
             Building = new Building(floorsNumber, Elevators);
         }
         public Building RetrieveBuilding()

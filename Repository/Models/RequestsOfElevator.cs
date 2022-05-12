@@ -9,6 +9,7 @@ namespace Repository.Models
     public class RequestsOfElevator
     {
         public int RequestToFloor { get; set; }
+
         public RequestsOfElevator(int requestToFloor)
         {
             RequestToFloor = requestToFloor;
