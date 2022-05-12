@@ -21,12 +21,13 @@ namespace UnitTests
                 new Elevator(2, 3),
                 new Elevator(3, 8)
             };
+            elevatorsList[0].IsBusy = true;
+            elevatorsList[1].IsBusy = true;
             Building building = new Building(12, elevatorsList);
-            int elevatorExpectedElevatorId = 2;
-            int elevatorIdWhichComes = elevatorManager.GetClosesedElevator(building, 4);
-            
+            int elevatorExpectedElevatorId = 3;
+            Elevator elevatorComing = elevatorManager.GetClosesedElevator(building, 4);
 
-            Assert.Equal(elevatorExpectedElevatorId, elevatorIdWhichComes);
+            Assert.Equal(elevatorExpectedElevatorId, elevatorComing.Id);
         }
         [Fact]
         public void ElevatorCall_ElevatorComeToMyFloorUp()
